@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABITUR</title>
+<style>
+  :root{
+    --bg: #0b0d12;
+    --bg2: #14171f;
+    --accent: #9fb4d0;
+    --accent2: #d9e3ef;
+    --text: #eef2f7;
+    --muted: #9aa3b2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    height:100%;
+    background:var(--bg);
+    color:var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x:hidden;
+  }
+
+  /* ===== INTRO / PRELOADER ===== */
+  #intro{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle at 50% 40%, #171b24 0%, #0b0d12 70%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    animation: introOut 0.8s ease forwards;
+    animation-delay: 2.6s;
+  }
+  #intro img{
+    width:200px;
+    max-width:55vw;
+    filter: drop-shadow(0 0 25px rgba(159,180,208,0.35));
+    animation: logoPop 1.1s cubic-bezier(.22,1,.36,1) forwards,
+               logoGlow 2s ease-in-out 1.1s infinite alternate;
+    opacity:0;
+    transform: scale(0.6);
+  }
+  #intro .ring{
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    border:2px solid rgba(159,180,208,0.25);
+    animation: ringGrow 2.4s ease-out forwards;
+  }
+  #intro .brandtext{
+    position:absolute;
+    bottom:18%;
+    left:0;right:0;
+    text-align:center;
+    letter-spacing:8px;
+    font-size:14px;
+    color:var(--muted);
+    opacity:0;
+    animation: fadeUp 0.8s ease forwards;
+    animation-delay: 1.4s;
+  }
+
+  @keyframes logoPop{
+    0%{ opacity:0; transform: scale(0.5) rotate(-8deg); }
+    60%{ opacity:1; transform: scale(1.08) rotate(2deg); }
+    100%{ opacity:1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes logoGlow{
+    0%{ filter: drop-shadow(0 0 15px rgba(159,180,208,0.25)); }
+    100%{ filter: drop-shadow(0 0 40px rgba(159,180,208,0.55)); }
+  }
+  @keyframes ringGrow{
+    0%{ transform: scale(0.3); opacity:0; }
+    40%{ opacity:0.8; }
+    100%{ transform: scale(1.6); opacity:0; }
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(10px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  @keyframes introOut{
+    to{ opacity:0; visibility:hidden; pointer-events:none; }
+  }
+
+  /* ===== MAIN SITE ===== */
+  #site{
+    opacity:0;
+    animation: siteIn 1s ease forwards;
+    animation-delay: 2.9s;
+  }
+  @keyframes siteIn{
+    to{ opacity:1; }
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 8%;
+    position:sticky;
+    top:0;
+    background:rgba(11,13,18,0.85);
+    backdrop-filter:blur(8px);
+    z-index:10;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .logo-mini{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    font-size:20px;
+  }
+  .logo-mini img{ width:36px; }
+  nav a{
+    color:var(--muted);
+    text-decoration:none;
+    margin-left:28px;
+    font-size:14px;
+    transition:color .2s;
+  }
+  nav a:hover{ color:var(--accent2); }
+
+  .hero{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:100px 8% 80px;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(159,180,208,0.08), transparent 60%);
+  }
+  .hero img{
+    width:150px;
+    margin-bottom:30px;
+    filter: drop-shadow(0 0 20px rgba(159,180,208,0.3));
+  }
+  .hero h1{
+    font-size:44px;
+    letter-spacing:3px;
+    background:linear-gradient(180deg, var(--accent2), var(--accent));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p{
+    margin-top:18px;
+    max-width:560px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.6;
+  }
+  .hero .cta{
+    margin-top:36px;
+    display:inline-block;
+    padding:14px 32px;
+    background:linear-gradient(135deg, var(--accent2), var(--accent));
+    color:#0b0d12;
+    font-weight:700;
+    border-radius:30px;
+    text-decoration:none;
+    letter-spacing:1px;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .hero .cta:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(159,180,208,0.25);
+  }
+
+  section{ padding:70px 8%; }
+  .features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:24px;
+  }
+  .card{
+    background:var(--bg2);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:16px;
+    padding:30px 24px;
+    transition:transform .25s, border-color .25s;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(159,180,208,0.4);
+  }
+  .card h3{ font-size:18px; margin-bottom:10px; color:var(--accent2); }
+  .card p{ color:var(--muted); font-size:14px; line-height:1.6; }
+
+  footer{
+    text-align:center;
+    padding:40px 8%;
+    color:var(--muted);
+    font-size:13px;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+
+  @media (max-width:600px){
+    .hero h1{ font-size:30px; }
+    nav a{ margin-left:14px; font-size:12px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- INTRO ANIMATION (3 soniya) -->
+  <div id="intro">
+    <div class="ring"></div>
+    <img src="logo.png" alt="ABITUR logo">
+    <div class="brandtext">A B I T U R</div>
+  </div>
+
+  <!-- ASOSIY SAYT -->
+  <div id="site">
+    <header>
+      <div class="logo-mini">
+        <img src="logo.png" alt="logo">
+        ABITUR
+      </div>
+      <nav>
+        <a href="#home">Bosh sahifa</a>
+        <a href="#about">Biz haqimizda</a>
+        <a href="#courses">Kurslar</a>
+        <a href="#contact">Aloqa</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <img src="logo.png" alt="ABITUR logo">
+      <h1>ABITUR</h1>
+      <p>Abituriyentlar uchun sifatli tayyorgarlik markazi. Maqsadingiz — oliy ta'lim, bizning maqsadimiz — sizni shu yo'lda qo'llab-quvvatlash.</p>
+      <a class="cta" href="#contact">Bog'lanish</a>
+    </section>
+
+    <section id="about">
+      <div class="features">
+        <div class="card">
+          <h3>Tajribali o'qituvchilar</h3>
+          <p>Har bir fan bo'yicha malakali va tajribali ustozlar bilan mashg'ulotlar.</p>
+        </div>
+        <div class="card">
+          <h3>Moslashuvchan jadval</h3>
+          <p>O'quvchi uchun qulay vaqt va formatda (offline/online) darslar.</p>
+        </div>
+        <div class="card">
+          <h3>Natijaga yo'naltirilgan</h3>
+          <p>Test va nazoratlar orqali doimiy progress kuzatiladi.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      © 2026 ABITUR. Barcha huquqlar himoyalangan.
+    </footer>
+  </div>
+
+</body>
+</html>
